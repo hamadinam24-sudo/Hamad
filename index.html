@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Portfolio | Developer</title>
+    
+    <!-- ANTI-CACHE HEADERS -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome with fallback -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Fallback for Font Awesome if CDN blocked -->
+    <style>
+        .fa, .fas, .far, .fal, .fab {
+            font-family: 'Font Awesome 6 Free' !important;
+            font-weight: 900;
+        }
+        .fab {
+            font-family: 'Font Awesome 6 Brands' !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#hero" class="logo">
+                    <i class="fas fa-code"></i>
+                    <span>Portfolio<span class="logo-highlight">Pro</span></span>
+                </a>
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#hero"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#about"><i class="fas fa-user"></i> About</a></li>
+                    <li><a href="#skills"><i class="fas fa-tools"></i> Skills</a></li>
+                    <li><a href="#experience"><i class="fas fa-briefcase"></i> Experience</a></li>
+                    <li><a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                    <li><a href="cv.html"><i class="fas fa-file-alt"></i> Full CV</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="admin-login.html" class="admin-btn"><i class="fas fa-lock"></i> Admin</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h4 class="hero-subtitle" id="hero-subtitle">Problem Solver • Tech Enthusiast • Polymath</h4>
+                    <h1 class="hero-title" id="hero-title">Hi, I'm <span class="text-gradient" id="user-name">Your Name</span></h1>
+                    <p class="hero-desc" id="hero-description">I build digital experiences that combine innovative technology with elegant design. Passionate about creating solutions that make an impact.</p>
+                    <div class="hero-btns">
+                        <a href="#projects" class="btn btn-primary"><i class="fas fa-rocket"></i> View Work</a>
+                        <a href="#contact" class="btn btn-secondary"><i class="fas fa-paper-plane"></i> Contact</a>
+                        <a href="cv.html" class="btn btn-outline"><i class="fas fa-download"></i> Download CV</a>
+                    </div>
+                    <div class="student-badge">
+                        <span class="student-tag">
+                            <i class="fas fa-graduation-cap"></i> Student Developer
+                        </span>
+                        <p class="student-discount">Available for projects at student rates</p>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="profile-avatar">
+                        <div class="avatar-frame">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Profile" id="profile-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title"><span class="title-number">01.</span> About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="about-bio" id="about-bio">
+                        <p>I am a talented learner who gracefully chases knowledge across all domains. My polymathic approach blends technology, creativity, and strategy to solve complex problems from unique perspectives. Each new skill I acquire becomes another tool in my arsenal for creating innovative, impactful solutions.</p>
+                        <p>As a perpetual learner with insatiable curiosity, I explore diverse fields from technology and science to art and philosophy. I believe the most innovative solutions emerge at the intersection of different domains.</p>
+                    </div>
+                    <div class="personal-info">
+                        <div class="info-item">
+                            <span class="info-label"><i class="fas fa-user"></i> Name:</span>
+                            <span class="info-value" id="info-name">Your Name</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label"><i class="fas fa-envelope"></i> Email:</span>
+                            <span class="info-value" id="info-email">hamad.inam24@gmail.com</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label"><i class="fas fa-phone"></i> Phone:</span>
+                            <span class="info-value" id="info-phone">Available upon request</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label"><i class="fas fa-map-marker-alt"></i> Location:</span>
+                            <span class="info-value" id="info-location">Remote • Available Worldwide</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label"><i class="fas fa-briefcase"></i> Status:</span>
+                            <span class="info-value" id="info-title">Student Developer • Open for Projects</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3 id="stat-experience">Student</h3>
+                        <p>Current Status</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-project-diagram"></i>
+                        <h3 id="stat-projects">10+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3 id="stat-clients">5+</h3>
+                        <p>Happy Clients</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-star"></i>
+                        <h3 id="stat-awards">100%</h3>
+                        <p>Satisfaction Rate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title"><span class="title-number">02.</span> Core Competencies</h2>
+            <div class="skills-container">
+                <div class="skills-category">
+                    <h3><i class="fas fa-brain"></i> Analytical & Technical</h3>
+                    <div class="skill-item">
+                        <span>Problem Solving</span>
+                        <div class="skill-bar"><div class="skill-level" style="width: 95%"></div></div>
+                        <span>95%</span>
+                    </div>
+                    <div class="skill-item">
+                        <span>Critical Thinking</span>
+                        <div class="skill-bar"><div class="skill-level" style="width: 90%"></div></div>
+                        <span>90%</span>
+                    </div>
+                    <div class="skill-item">
+                        <span>Technical Research</span>
+                        <div class="skill-bar"><div class="skill-level" style="width: 88%"></div></div>
+                        <span>88%</span>
+                    </div>
+                    <div class="skill-item">
+                        <span>Data Analysis</span>
+                        <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div>
+                        <span>85%</span>
+                    </div>
+                </div>
+                
+                <div class="skills-category">
+                    <h3><i class="fas fa-users"></i> Professional & Creative</h3>
+                    <div class="skill-item">
+                        <span>Project Management</span>
+                        <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div>
+                        <span>85%</span>
+                    </div>
+                    <div class="skill-item">
+                        <span>Communication</span>
+                        <div class="skill-bar"><div class="skill-level" style="width: 92%"></div></div>
+                        <span>92%</span>
+                    </div>
+                    <div class="skill-item">
+                        <span>Creative Problem-Solving</span>
+                        <div class="skill-bar"><div class="skill-level" style="width: 90%"></div></div>
+                        <span>90%</span>
+                    </div>
+                    <div class="skill-item">
+                        <span>Adaptability</span>
+                        <div class="skill-bar"><div class="skill-level" style="width: 95%"></div></div>
+                        <span>95%</span>
+                    </div>
+                </div>
+                
+                <div class="skills-category">
+                    <h3><i class="fas fa-tools"></i> Digital & Technical</h3>
+                    <div class="skill-item">
+                        <span>Web Technologies</span>
+                        <div class="skill-bar"><div class="skill-level" style="width: 80%"></div></div>
+                        <span>80%</span>
+                    </div>
+                    <div class="skill-item">
+                        <span>Digital Literacy</span>
+                        <div class="skill-bar"><div class="skill-level" style="width: 95%"></div></div>
+                        <span>95%</span>
+                    </div>
+                    <div class="skill-item">
+                        <span>Software Proficiency</span>
+                        <div class="skill-bar"><div class="skill-level" style="width: 88%"></div></div>
+                        <span>88%</span>
+                    </div>
+                    <div class="skill-item">
+                        <span>Learning Agility</span>
+                        <div class="skill-bar"><div class="skill-level" style="width: 98%"></div></div>
+                        <span>98%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title"><span class="title-number">03.</span> Experience & Projects</h2>
+            <div class="timeline" id="experience-timeline">
+                <!-- Experience items loaded from database -->
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title"><span class="title-number">04.</span> Featured Projects</h2>
+            <div class="projects-grid" id="projects-grid">
+                <!-- Projects loaded from database -->
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title"><span class="title-number">05.</span> Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Let's Work Together</h3>
+                    <p>I'm currently available for freelance projects and internship opportunities. As a student developer, I offer quality work at academic rates. Feel free to reach out if you want to collaborate!</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p id="contact-email">hamad.inam24@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Phone</h4>
+                                <p id="contact-phone">Available upon request</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Status</h4>
+                                <p id="contact-location">Student Developer • Available for projects</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
+                    </form>
+                    <div id="form-status"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#hero" class="logo">
+                        <i class="fas fa-code"></i>
+                        <span>Portfolio<span class="logo-highlight">Pro</span></span>
+                    </a>
+                    <p>Building digital excellence • Student Developer</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <a href="#hero">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#projects">Projects</a>
+                    <a href="cv.html">CV/Resume</a>
+                    <a href="admin-login.html">Admin</a>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect</h4>
+                    <div class="social-icons">
+                        <a href="mailto:hamad.inam24@gmail.com" title="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="#" title="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                    <p style="margin-top: 15px; color: var(--gray); font-size: 0.9rem;">
+                        <i class="fas fa-graduation-cap"></i> Student rates available
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">&copy; <span id="currentYear"></span> PortfolioPro. All rights reserved.</p>
+                <p>Student Developer • Data stored locally in browser</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS - IMPORTANT: ORDER MATTERS! -->
+    <script src="database.js"></script>
+    <script src="script.js"></script>
+    
+    <!-- Debug script for live updates -->
+    <script>
+        // Additional debug and auto-refresh
+        console.log('🔧 Portfolio page loaded at:', new Date().toLocaleTimeString());
+        
+        // Check localStorage immediately
+        const checkData = localStorage.getItem('portfolio_database_v2');
+        console.log('📦 localStorage check:', checkData ? 'Data exists' : 'NO DATA FOUND');
+        
+        if (checkData) {
+            try {
+                const data = JSON.parse(checkData);
+                console.log('📊 Current name in localStorage:', data.profile?.name);
+            } catch(e) {
+                console.error('❌ Error parsing localStorage data:', e);
+            }
+        }
+        
+        // Force refresh when returning from admin
+        window.addEventListener('pageshow', function(event) {
+            console.log('🔄 Pageshow event - checking for updates');
+            if (window.portfolioDB) {
+                const db = new PortfolioDB();
+                const data = db.getPortfolioData();
+                console.log('Current data on pageshow:', data.profile?.name);
+            }
+        });
+        
+        // Listen for ANY localStorage changes
+        window.addEventListener('storage', function(e) {
+            console.log('📡 Storage change detected:', e.key);
+            if (e.key === 'portfolio_database_v2') {
+                console.log('🔄 Portfolio data changed - reloading page');
+                location.reload();
+            }
+        });
+        
+        // Check for updates every 2 seconds
+        setInterval(function() {
+            const db = new PortfolioDB();
+            const data = db.getPortfolioData();
+            console.log('⏰ Auto-check:', data.profile?.name);
+        }, 2000);
+    </script>
+</body>
+</html>

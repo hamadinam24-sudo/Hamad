@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Portfolio Database</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="database.js" defer></script>
+</head>
+<body class="admin-body">
+    <!-- Auth Check -->
+    <script>
+        // Check if user is authenticated
+        const isAuthenticated = sessionStorage.getItem('admin_authenticated') === 'true';
+        const loginTime = parseInt(sessionStorage.getItem('login_time') || '0');
+        const sessionDuration = 2 * 60 * 60 * 1000; // 2 hours
+        
+        if (!isAuthenticated || (new Date().getTime() - loginTime) > sessionDuration) {
+            sessionStorage.removeItem('admin_authenticated');
+            sessionStorage.removeItem('login_time');
+            window.location.href = 'admin-login.html';
+        }
+    </script>
+
+    <div class="admin-container">
+        <div class="admin-sidebar">
+            <div class="admin-logo">
+                <i class="fas fa-database"></i>
+                <h2>Portfolio DB</h2>
+            </div>
+            
+            <nav class="admin-nav">
+                <a href="#dashboard" class="nav-item active" data-tab="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#profile" class="nav-item" data-tab="profile">
+                    <i class="fas fa-user-edit"></i>
+                    <span>Profile Info</span>
+                </a>
+                <a href="#experience" class="nav-item" data-tab="experience">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Experience</span>
+                </a>
+                <a href="#projects" class="nav-item" data-tab="projects">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Projects</span>
+                </a>
+                <a href="#skills" class="nav-item" data-tab="skills">
+                    <i class="fas fa-tools"></i>
+                    <span>Skills</span>
+                </a>
+                <a href="#cv" class="nav-item" data-tab="cv">
+                    <i class="fas fa-file-alt"></i>
+                    <span>CV Builder</span>
+                </a>
+                <a href="#settings" class="nav-item" data-tab="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="index.html" class="nav-item back-to-site">
+                    <i class="fas fa-external-link-alt"></i>
+                    <span>View Live Site</span>
+                </a>
+                <a href="#" class="nav-item logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="admin-main">
+            <header class="admin-header">
+                <h1><i class="fas fa-database"></i> Portfolio Database Manager</h1>
+                <div class="admin-actions">
+                    <button class="btn btn-save" id="saveAllBtn">
+                        <i class="fas fa-save"></i> Save All Changes
+                    </button>
+                    <button class="btn btn-export" id="exportBtn">
+                        <i class="fas fa-download"></i> Export Data
+                    </button>
+                    <div class="admin-status">
+                        <span class="status-indicator active"></span>
+                        <span>Database: <strong>Local Storage</strong></span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="admin-content">
+                <!-- Dashboard Tab -->
+                <div id="dashboard" class="admin-tab active">
+                    <div class="dashboard-cards">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <i class="fas fa-user"></i>
+                                <h3>Profile Info</h3>
+                            </div>
+                            <div class="card-body">
+                                <h2 id="db-profile-count">Complete</h2>
+                                <p>Last updated: <span id="db-profile-date">Today</span></p>
+                            </div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <i class="fas fa-briefcase"></i>
+                                <h3>Experience Items</h3>
+                            </div>
+                            <div class="card-body">
+                                <h2 id="db-exp-count">0</h2>
+                                <p>Work history entries</p>
+                            </div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <i class="fas fa-project-diagram"></i>
+                                <h3>Projects</h3>
+                            </div>
+                            <div class="card-body">
+                                <h2 id="db-project-count">0</h2>
+                                <p>Portfolio projects</p>
+                            </div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <i class="fas fa-database"></i>
+                                <h3>Database Size</h3>
+                            </div>
+                            <div class="card-body">
+                                <h2 id="db-size">0 KB</h2>
+                                <p>Local storage used</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-section">
+                        <h2><i class="fas fa-sync-alt"></i> Quick Actions</h2>
+                        <div class="quick-actions">
+                            <button class="action-btn" id="backupBtn">
+                                <i class="fas fa-database"></i>
+                                <span>Backup Data</span>
+                            </button>
+                            <button class="action-btn" id="restoreBtn">
+                                <i class="fas fa-undo"></i>
+                                <span>Restore Backup</span>
+                            </button>
+                            <button class="action-btn" id="resetBtn">
+                                <i class="fas fa-trash"></i>
+                                <span>Reset All Data</span>
+                            </button>
+                            <button class="action-btn" id="previewBtn">
+                                <i class="fas fa-eye"></i>
+                                <span>Preview Changes</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="admin-section">
+                        <h2><i class="fas fa-info-circle"></i> Database Info</h2>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <label>Storage Method:</label>
+                                <span>Browser LocalStorage</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Auto-save:</label>
+                                <span><span class="status-indicator active"></span> Enabled</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Last Backup:</label>
+                                <span id="last-backup">Never</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Data Version:</label>
+                                <span>v1.0.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Tab -->
+                <div id="profile" class="admin-tab">
+                    <div class="admin-section">
+                        <h2><i class="fas fa-user-cog"></i> Personal Information</h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Full Name *</label>
+                                <input type="text" id="input-name" placeholder="John Doe" data-field="name">
+                            </div>
+                            <div class="form-group">
+                                <label>Job Title *</label>
+                                <input type="text" id="input-title" placeholder="Senior Developer" data-field="title">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input type="email" id="input-email" placeholder="hello@example.com" data-field="email">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="text" id="input-phone" placeholder="+1 (234) 567-8900" data-field="phone">
+                            </div>
+                            <div class="form-group">
+                                <label>Location</label>
+                                <input type="text" id="input-location" placeholder="City, Country" data-field="location">
+                            </div>
+                            <div class="form-group">
+                                <label>Profile Image URL</label>
+                                <input type="url" id="input-image" placeholder="https://example.com/photo.jpg" data-field="image">
+                                <small>Enter direct image link</small>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Hero Section Description</label>
+                                <textarea id="input-hero-desc" rows="3" placeholder="Brief introduction about yourself..." data-field="heroDesc"></textarea>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>About Me Bio *</label>
+                                <textarea id="input-about" rows="5" placeholder="Detailed biography..." data-field="about"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-section">
+                        <h2><i class="fas fa-chart-line"></i> Statistics</h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Years of Experience</label>
+                                <input type="number" id="input-exp-years" min="0" max="50" data-field="expYears">
+                            </div>
+                            <div class="form-group">
+                                <label>Projects Completed</label>
+                                <input type="number" id="input-project-count" min="0" data-field="projectCount">
+                            </div>
+                            <div class="form-group">
+                                <label>Happy Clients</label>
+                                <input type="number" id="input-client-count" min="0" data-field="clientCount">
+                            </div>
+                            <div class="form-group">
+                                <label>Awards Won</label>
+                                <input type="number" id="input-award-count" min="0" data-field="awardCount">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Tab -->
+                <div id="experience" class="admin-tab">
+                    <div class="admin-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-briefcase"></i> Work Experience</h2>
+                            <button class="btn btn-add" id="addExperienceBtn">
+                                <i class="fas fa-plus"></i> Add Experience
+                            </button>
+                        </div>
+                        
+                        <div class="sortable-list" id="experienceList">
+                            <!-- Experience items will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Tab -->
+                <div id="projects" class="admin-tab">
+                    <div class="admin-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-project-diagram"></i> Portfolio Projects</h2>
+                            <button class="btn btn-add" id="addProjectBtn">
+                                <i class="fas fa-plus"></i> Add Project
+                            </button>
+                        </div>
+                        
+                        <div class="projects-admin-grid" id="projectsAdminGrid">
+                            <!-- Projects will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills Tab -->
+                <div id="skills" class="admin-tab">
+                    <div class="admin-section">
+                        <h2><i class="fas fa-tools"></i> Skills Management</h2>
+                        
+                        <div class="skills-admin">
+                            <div class="skills-category-admin">
+                                <h3>Frontend Skills</h3>
+                                <div class="skill-input-group">
+                                    <input type="text" placeholder="Skill name (e.g., React.js)" id="frontend-skill-name">
+                                    <input type="range" min="0" max="100" value="80" id="frontend-skill-level">
+                                    <span id="frontend-skill-value">80%</span>
+                                    <button class="btn btn-small" id="addFrontendSkill">Add</button>
+                                </div>
+                                <div class="skills-list" id="frontend-skills-list"></div>
+                            </div>
+                            
+                            <div class="skills-category-admin">
+                                <h3>Backend Skills</h3>
+                                <div class="skill-input-group">
+                                    <input type="text" placeholder="Skill name (e.g., Node.js)" id="backend-skill-name">
+                                    <input type="range" min="0" max="100" value="80" id="backend-skill-level">
+                                    <span id="backend-skill-value">80%</span>
+                                    <button class="btn btn-small" id="addBackendSkill">Add</button>
+                                </div>
+                                <div class="skills-list" id="backend-skills-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CV Builder Tab -->
+                <div id="cv" class="admin-tab">
+                    <div class="admin-section">
+                        <h2><i class="fas fa-file-pdf"></i> CV/Resume Builder</h2>
+                        <div class="cv-preview" id="cvPreview">
+                            <!-- CV Preview will be generated here -->
+                        </div>
+                        <div class="cv-actions">
+                            <button class="btn btn-primary" id="generateCVBtn">
+                                <i class="fas fa-file-pdf"></i> Generate PDF CV
+                            </button>
+                            <button class="btn" id="printCVBtn">
+                                <i class="fas fa-print"></i> Print CV
+                            </button>
+                            <button class="btn" id="downloadCVBtn">
+                                <i class="fas fa-download"></i> Download HTML CV
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div id="settings" class="admin-tab">
+                    <div class="admin-section">
+                        <h2><i class="fas fa-cog"></i> Admin Settings</h2>
+                        
+                        <div class="settings-grid">
+                            <div class="setting-item">
+                                <label>Admin Password</label>
+                                <div class="password-change">
+                                    <input type="password" id="current-password" placeholder="Current password">
+                                    <input type="password" id="new-password" placeholder="New password">
+                                    <input type="password" id="confirm-password" placeholder="Confirm new password">
+                                    <button class="btn btn-small" id="changePasswordBtn">Change</button>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <label>Auto-save Interval</label>
+                                <select id="autosave-interval">
+                                    <option value="5000">5 seconds</option>
+                                    <option value="10000">10 seconds</option>
+                                    <option value="30000" selected>30 seconds</option>
+                                    <option value="60000">1 minute</option>
+                                    <option value="300000">5 minutes</option>
+                                </select>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <label>Database Backup</label>
+                                <div class="backup-controls">
+                                    <input type="file" id="backup-file" accept=".json" style="display: none;">
+                                    <button class="btn btn-small" onclick="document.getElementById('backup-file').click()">
+                                        Import Backup
+                                    </button>
+                                    <button class="btn btn-small" id="exportBackupBtn">
+                                        Export Backup
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <label>Reset Options</label>
+                                <div class="reset-controls">
+                                    <button class="btn btn-small btn-danger" id="resetProfileBtn">
+                                        Reset Profile Only
+                                    </button>
+                                    <button class="btn btn-small btn-danger" id="resetAllBtn">
+                                        Reset Everything
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Experience Item Template (Hidden) -->
+    <template id="experienceTemplate">
+        <div class="sortable-item" data-id="">
+            <div class="item-header">
+                <i class="fas fa-grip-vertical drag-handle"></i>
+                <h3 class="item-title">New Experience</h3>
+                <div class="item-actions">
+                    <button class="btn-small btn-edit"><i class="fas fa-edit"></i></button>
+                    <button class="btn-small btn-danger btn-delete"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            <div class="item-content">
+                <div class="form-grid compact">
+                    <div class="form-group">
+                        <label>Job Title</label>
+                        <input type="text" class="exp-title" placeholder="Senior Developer">
+                    </div>
+                    <div class="form-group">
+                        <label>Company</label>
+                        <input type="text" class="exp-company" placeholder="Tech Corp Inc.">
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" class="exp-location" placeholder="Remote">
+                    </div>
+                    <div class="form-group">
+                        <label>Period</label>
+                        <input type="text" class="exp-period" placeholder="2020 - Present">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Description</label>
+                        <textarea class="exp-description" rows="3" placeholder="Responsibilities and achievements..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Project Item Template (Hidden) -->
+    <template id="projectTemplate">
+        <div class="project-admin-card" data-id="">
+            <div class="project-admin-header">
+                <div class="project-admin-image">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="project-img-preview">
+                    <input type="url" class="project-image-input" placeholder="Image URL">
+                </div>
+                <div class="project-admin-info">
+                    <input type="text" class="project-title-input" placeholder="Project Title" value="New Project">
+                    <textarea class="project-desc-input" placeholder="Project description..." rows="2"></textarea>
+                    <div class="project-tags-input">
+                        <input type="text" class="tag-input" placeholder="Add tags (comma separated)">
+                    </div>
+                </div>
+            </div>
+            <div class="project-admin-actions">
+                <button class="btn-small btn-save-project"><i class="fas fa-save"></i> Save</button>
+                <button class="btn-small btn-danger btn-delete-project"><i class="fas fa-trash"></i> Delete</button>
+                <button class="btn-small btn-preview-project"><i class="fas fa-eye"></i> Preview</button>
+            </div>
+        </div>
+    </template>
+
+    <script src="admin.js"></script>
+</body>
+</html>
