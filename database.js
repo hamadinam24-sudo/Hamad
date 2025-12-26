@@ -164,13 +164,22 @@ class PortfolioDB {
             ],
             projects: [
                 {
+                    id: "cube-runner",
+                    title: "Cube Runner 3D",
+                    description: "A fast-paced 3D running game built with Python. Navigate obstacles, collect power-ups, and beat your high score in this immersive runner experience.",
+                    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    tags: ["Python", "GameDev", "3D"],
+                    link: "https://greedif.pythonanywhere.com", // 🔴 FIXED LINK
+                    order: 0
+                },
+                {
                     id: this.generateId(),
                     title: "Portfolio Website",
                     description: "A fully responsive portfolio website with admin panel and local database system. Built with HTML, CSS, and JavaScript.",
                     image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                     tags: ["HTML", "CSS", "JavaScript", "LocalStorage"],
-                    link: "#",
-                    order: 0
+                    link: "https://hamadinam24-sudo.github.io/Hamad/", // 🔴 FIXED LINK
+                    order: 1
                 },
                 {
                     id: this.generateId(),
@@ -179,16 +188,6 @@ class PortfolioDB {
                     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                     tags: ["JavaScript", "LocalStorage", "UI/UX"],
                     link: "#",
-                    order: 1
-                },
-                // 🔴 NEW: Cube Runner Game added to default data
-                {
-                    id: "cube-runner",
-                    title: "Cube Runner 3D",
-                    description: "A fast-paced 3D running game built with Python. Navigate obstacles, collect power-ups, and beat your high score in this immersive runner experience.",
-                    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    tags: ["Python", "GameDev", "3D"],
-                    link: "https://greedif.pythonanywhere.com",
                     order: 2
                 }
             ],

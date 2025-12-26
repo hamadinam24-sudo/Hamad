@@ -1,27 +1,27 @@
 {
   "profile": {
-    "name": "Hamad Inam",
-    "title": "High-School Student",
+    "name": "Your Name",
+    "title": "Student Developer • Problem Solver",
     "email": "hamad.inam24@gmail.com",
-    "phone": "+973 3329 6174",
+    "phone": "Available upon request",
     "location": "Remote • Available Worldwide",
-    "image": "https://cdn.discordapp.com/attachments/1438130611452772373/1453785815703490590/9b0c6b3a6082fb9dcfa40ded8ffd83b0.jpg?ex=694f5fcc&is=694e0e4c&hm=f280e81d33e440f660368b447b5aa4b7d8ef3ac3be9164412fa83501b7b587a2",
-    "heroDesc": "Problem Solver • Tech Enthusiast • Polymath",
-    "about": "I am a talented learner who gracefully chases knowledge across all domains...",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+    "heroDesc": "Problem Solver • Tech Enthusiast • Polymath. Transforming complex challenges into elegant solutions through technology and interdisciplinary thinking.",
+    "about": "I am a talented learner who gracefully chases knowledge across all domains. My polymathic approach blends technology, creativity, and strategy to solve complex problems from unique perspectives. Each new skill I acquire becomes another tool in my arsenal for creating innovative, impactful solutions.",
     "expYears": 1,
-    "projectCount": 3,
+    "projectCount": 10,
     "clientCount": 5,
-    "awardCount": 23,
-    "lastUpdated": "2025-12-25"
+    "awardCount": 100,
+    "lastUpdated": "2023-12-25"
   },
   "projects": [
     {
       "id": "cube-runner",
       "title": "Cube Runner 3D",
-      "description": "A fast-paced 3D running game built with Python,Css, Html, Js.",
-      "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f",
-      "link": "https://greedif.pythonanywhere.com",
+      "description": "A fast-paced 3D running game built with Python. Navigate obstacles, collect power-ups, and beat your high score in this immersive runner experience.",
+      "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       "tags": ["Python", "GameDev", "3D"],
+      "link": "https://greedif.pythonanywhere.com",
       "order": 0
     }
   ],
