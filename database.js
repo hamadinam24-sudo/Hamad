@@ -37,15 +37,84 @@ class PortfolioDB {
         });
     }
     
-    // Initialize with default data if empty
-    initDefaultData() {
+    // 🔴 NEW: GitHub auto-save function
+    async autoSaveToGitHub(data) {
+        try {
+            console.log('🌐 Attempting GitHub auto-save...');
+            
+            // 1. Convert data to JSON string
+            const jsonString = JSON.stringify(data, null, 2);
+            
+            // 2. Create a download link (user can manually update)
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            // 3. Show instructions in console
+            console.log('📋 GitHub Update Instructions:');
+            console.log('1. Download this file:');
+            console.log('   https://hamadinam24-sudo.github.io/Hamad/portfolio-backup.json');
+            console.log('2. Replace your db.json file with this content');
+            console.log('3. Run: git add db.json && git commit -m "DB update" && git push');
+            
+            // 4. Create downloadable backup
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `portfolio-backup-${new Date().toISOString().split('T')[0]}.json`;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // 5. Also save to sessionStorage as emergency backup
+            sessionStorage.setItem('github_db_backup', jsonString);
+            
+            console.log('✅ GitHub backup ready for manual update');
+            return true;
+            
+        } catch (error) {
+            console.warn('⚠️ GitHub auto-save failed (manual update required):', error);
+            return false;
+        }
+    }
+    
+    // 🔴 NEW: Try to load from GitHub first
+    async tryLoadFromGitHub() {
+        try {
+            console.log('🌐 Trying to load from GitHub...');
+            const response = await fetch('https://raw.githubusercontent.com/hamadinam24-sudo/Hamad/main/db.json?t=' + Date.now());
+            
+            if (response.ok) {
+                const githubData = await response.json();
+                console.log('✅ Successfully loaded from GitHub!');
+                
+                // Save to localStorage
+                this.saveData(githubData);
+                return githubData;
+            }
+        } catch (error) {
+            console.log('⚠️ GitHub load failed, using localStorage:', error.message);
+        }
+        return null;
+    }
+    
+    // 🔴 MODIFIED: Initialize with GitHub or default data
+    async initDefaultData() {
         const existing = localStorage.getItem(this.STORAGE_KEY);
+        
+        // First try to load from GitHub
+        const githubData = await this.tryLoadFromGitHub();
+        if (githubData) {
+            console.log('✅ Using data from GitHub');
+            return;
+        }
+        
         if (!existing) {
             console.log('📝 No existing data found. Creating default data...');
             const defaultData = this.getDefaultData();
             this.saveData(defaultData);
         } else {
-            console.log('✅ Existing data found');
+            console.log('✅ Existing localStorage data found');
             try {
                 const parsed = JSON.parse(existing);
                 console.log('📋 Current profile name:', parsed.profile?.name);
@@ -111,6 +180,16 @@ class PortfolioDB {
                     tags: ["JavaScript", "LocalStorage", "UI/UX"],
                     link: "#",
                     order: 1
+                },
+                // 🔴 NEW: Cube Runner Game added to default data
+                {
+                    id: "cube-runner",
+                    title: "Cube Runner 3D",
+                    description: "A fast-paced 3D running game built with Python. Navigate obstacles, collect power-ups, and beat your high score in this immersive runner experience.",
+                    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    tags: ["Python", "GameDev", "3D"],
+                    link: "https://greedif.pythonanywhere.com",
+                    order: 2
                 }
             ],
             skills: {
@@ -164,7 +243,7 @@ class PortfolioDB {
         }
     }
     
-    // Save all data
+    // 🔴 MODIFIED: Save all data (now with GitHub auto-save)
     saveData(data) {
         console.log('💾 Saving data...');
         console.log('📝 New profile name:', data.profile?.name);
@@ -175,6 +254,9 @@ class PortfolioDB {
             localStorage.setItem(this.STORAGE_KEY, jsonString);
             
             console.log('✅ Data saved successfully!');
+            
+            // 🔴 NEW: Auto-save to GitHub
+            this.autoSaveToGitHub(data);
             
             // Force update event
             this.triggerUpdateEvent();
